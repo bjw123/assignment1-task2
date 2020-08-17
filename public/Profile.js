@@ -1,3 +1,17 @@
+function setProfile(user) {
+
+    $("#user-name").html(user["name"]);
+    $("#user-age").html(user["age"]);
+    $("#user-bio").html(user["bio"])
+    $("#user-pic").attr('src', user["pic"]);
+
+}
+
+
+
+
+
+
 $(document).ready(function(){
     console.log("running script");
     $.get("/getUsers", function (res) {
@@ -7,15 +21,36 @@ $(document).ready(function(){
         let user = users[i];
         setProfile(user);
 
+        let end = users.length;
+        const eof = {name: "no more users", pic:"https://ncjamieson.com/static/42192ca0cf015fd255a43c143de83e7d/5fd6b/title.jpg", bio:"please try again later", age:"null"}
         $("#like-button").click(function () {
-            i++;
-            user = users[i];
-            setProfile(user);
+            if(user["like"] == "true"){
+                alert("congrats you have a match")
+                //add to db of matches
+            }
+
+
+            if(i >= (end-1))
+            {
+                setProfile(eof);
+            }
+            else {
+                i++;
+                user = users[i];
+                setProfile(user);
+            }
+
         })
         $("#dislike-button").click(function () {
-            i= i+1;
-            user = users[i];
-            setProfile(user);
+            if(i >= (end-1))
+            {
+                setProfile(eof);
+            }
+            else {
+                i++;
+                user = users[i];
+                setProfile(user);
+            }
         })
     })
 });
@@ -25,13 +60,3 @@ $(document).ready(function(){
 
 
 
-function setProfile(user) {
-
-    $("#user-name").html(user["name"]);
-    $("#user-age").html(user["age"]);
-    $("#user-bio").html(user["bio"])
-    //let filePath = $('#' +user["pic"]).val();
-    //$("#user-pic").attr('src',filePath);
-    $("#user-pic").attr('src', user["pic"]);
-    //$("#user-pic").html(user["pic"]);
-}

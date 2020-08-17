@@ -9,6 +9,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true,useUnifiedTopology: 
 let app = new express();
 
 app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 //test ignore
 app.get("/",(req, res) => {
@@ -21,42 +22,45 @@ app.get("/",(req, res) => {
 
 //working, maybe client connect is not necessary however I kept getting 404 errors so I am using it
 app.get("/getUsers",(req, res) => {
-    client.connect((err,db) => {
-        let result = client.db("tinderUsers").collection("users");
-        if(!err){
-            console.log('Database Connected')
-            var dbo = db.db("tinderUsers");
-            dbo.collection("users").find({}).toArray(function(err, result){
-                console.log(result);
-                res.send(result);
-            })
 
-        }
-    })
+            fUsersCollection.find().toArray(function (err,result) {
+                if (err) throw err;
+                res.send(result)
+            })
 
 })
 
 
 //needs testing
-app.post("createUser",(req,res)=>{
+app.post("/createUser",(req,res)=>{
     console.log('body',req.body)
     let user=req.body;
-    client.connect((err,db) => {
-        let result = client.db("tinderUsers").collection("realUsers");
-        if(!err){
-            console.log('Database Connected')
-            var dbo = db.db("tinderUsers");
-            dbo.collection("realUsers").insert(user, (err, result) =>{
-                console.log('Journal Inserted',result)
-                res.send({result:200})
-            })
-
-        }
+    rUsersCollection.insert(user, (err,result) => {
+        console.log("User created", result);
+        res.send({result: 200});
     })
+
 })
+let rUsersCollection
+const openConnectionRealUsers = (message) => {
+    client.connect((err,db) => {
+        rUsersCollection = client.db("tinderUsers").collection("realUsers");
+        if(!err){
+            console.log('rUsers Database Connected')
+        }
+    });
+}
+let fUsersCollection
+const openConnectionFakeUsers = (message) => {
+    client.connect((err, db) => {
+        fUsersCollection = client.db("tinderUsers").collection("users");
+        if (!err) {
+            console.log('fUsers Database Connected')
+        }
+    });
+}
 
 
-
-
-
+openConnectionRealUsers();
+openConnectionFakeUsers();
 app.listen(3000)
