@@ -10,16 +10,23 @@ $(document).ready(function () {
 
     $('select').formSelect();
 
-
-    $.ajax({
-        url: "/createUser",
-        contentType: 'application/json',
-        data: JSON.stringify(data), // access in body
-        type: 'PUT',
-        success: function(result) {
-            console.log(result)
-        }
+    $("#submit-button").click(function () {
+        let thisName = $("#user-name").val();
+        let thisEmail = $("#user-email").val();
+        let thisAge = $("#user-age").val();
+        let thisGender = $("#user-gender").val();
+        let thisUser = {name:thisName, email:thisEmail, age:thisAge, gender:thisGender}
+        $.ajax({
+            url: "/createUser",
+            contentType: 'application/json',
+            data: JSON.stringify(thisUser), // access in body
+            type: 'PUT',
+            success: function(result) {
+                console.log(result)
+            }
+        })
     })
+
 
 
 

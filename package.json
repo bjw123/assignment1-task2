@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "*",
-    "moment": "*",
     "jquery": "*",
+    "moment": "*",
     "mongodb": "^3.6.0"
   },
   "scripts": {
