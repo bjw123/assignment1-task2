@@ -11,7 +11,7 @@ function setProfile(user) {
 
 
 
-
+// I could retrieve the data out of load for more efficiency
 $(document).ready(function(){
     console.log("running script");
     $.get("/getUsers", function (res) {
@@ -24,6 +24,7 @@ $(document).ready(function(){
         let end = users.length;
         const eof = {name: "no more users", pic:"https://ncjamieson.com/static/42192ca0cf015fd255a43c143de83e7d/5fd6b/title.jpg", bio:"please try again later", age:"null"}
         $("#like-button").click(function () {
+            //functions could be used for the 2 buttons
             if(user["like"] == "true"){
                 alert("congrats you have a match")
                 //add to db of matches

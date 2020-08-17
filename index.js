@@ -30,6 +30,16 @@ app.get("/getUsers",(req, res) => {
 
 })
 
+// searching for the user in the server is more secure but this is a prototype build so its done this way
+app.get("/validateUser",(req, res) => {
+
+    rUsersCollection.find().toArray(function (err,result) {
+        if (err) throw err;
+        res.send(result)
+    })
+
+})
+
 
 //needs testing
 app.post("/createUser",(req,res)=>{
