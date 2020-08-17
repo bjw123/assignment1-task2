@@ -6,7 +6,8 @@
   "dependencies": {
     "express": "*",
     "moment": "*",
-    "jquery": "*"
+    "jquery": "*",
+    "mongodb": "^3.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

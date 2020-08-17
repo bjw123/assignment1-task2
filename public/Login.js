@@ -1,24 +1,26 @@
 console.log("login script loaded");
 
-
+/*
 function show_value(x)
 {
     document.getElementById("slider_value").innerHTML=x;
-}
+}*/
 
 $(document).ready(function () {
 
     $('select').formSelect();
 
 
+    $.ajax({
+        url: "/createUser",
+        contentType: 'application/json',
+        data: JSON.stringify(data), // access in body
+        type: 'PUT',
+        success: function(result) {
+            console.log(result)
+        }
+    })
 
-
-    console.log("document ready");
-
-    $.get( "/getUsers", function(data) {
-        console.log(data);
-
-    });
 
 
 
