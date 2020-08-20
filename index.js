@@ -46,6 +46,7 @@ app.get("/validateUser",(req, res) => {
 app.post("/createUser",(req,res)=>{
     console.log('body',req.body)
     let user=req.body;
+    user.matches = []; //check if working
     rUsersCollection.insert(user, (err,result) => {
         console.log("User created", result);
         res.send({result: 200});

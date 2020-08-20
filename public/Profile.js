@@ -26,7 +26,10 @@ $(document).ready(function(){
         $("#like-button").click(function () {
             //functions could be used for the 2 buttons
             if(user["like"] == "true"){
-                alert("congrats you have a match")
+                $("#match-img").attr('src', user["pic"]);
+                $( function() {
+                    $( "#dialog" ).dialog();
+                } );
                 //add to db of matches
             }
 
