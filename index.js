@@ -6,6 +6,24 @@ const { ObjectID } = require('mongodb');
 const uri = "mongodb+srv://admin:admin@cluster0.5cdt0.mongodb.net/test?retryWrites=true&w=majority"
 const client = new MongoClient(uri, { useNewUrlParser: true,useUnifiedTopology: true });
 const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'tinderclone12@gmail.com',
+        pass: 'tinderClone1@'
+    }
+})
+
+/*
+let target = "brycewilkinson43@gmail.com";
+let targetName = "bryce";
+let mailOptions = {
+    from: 'tinderclone12@gmail.com',
+    to: "brycewilkinson43@gmail.com",
+    subject: 'Tinder clone, new match',
+    text: ('Congrats you have matched with ' + targetName)
+};
+*/
 
 let app = new express();
 
@@ -18,7 +36,6 @@ app.get("/",(req, res) => {
     console.log(hello);
     res.send("yo");
 })
-
 
 
 //working, maybe client connect is not necessary however I kept getting 404 errors so I am using it
@@ -53,6 +70,32 @@ app.post("/createUser",(req,res)=>{
     })
 
 })
+
+app.post("/sendEmail",(req,res)=>{
+    console.log('body',req.body)
+    let user=req.body;
+    let target = user.email;
+    let targetName = user.name;
+    let mailOptions = {
+        from: 'tinderclone12@gmail.com',
+        to: target,
+        subject: 'Tinder clone, new match',
+        text: ('Congrats you have matched with ' + targetName)
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+            res.send({result: 200});
+        }
+    });
+
+
+
+})
+
 let rUsersCollection
 const openConnectionRealUsers = (message) => {
     client.connect((err,db) => {
@@ -71,6 +114,22 @@ const openConnectionFakeUsers = (message) => {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 openConnectionRealUsers();

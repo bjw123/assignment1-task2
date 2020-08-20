@@ -7,6 +7,28 @@ function setProfile(user) {
 
 }
 
+function sendEmail(user){
+    let name = user["name"];
+    let email = user["email"];
+
+    console.log(name)
+    console.log(email)
+
+    let data = {name:name, email:email}
+    console.log("data:    " +data)
+    $.ajax({
+        url: '/sendEmail',
+        contentType: 'application/json',
+        data: JSON.stringify(data), // access in body
+        type: 'POST',
+        success: function (result) {
+            console.log(data)
+            console.log(result)
+            //.html?email="x"
+        }
+    })
+}
+
 
 
 
@@ -14,6 +36,7 @@ function setProfile(user) {
 // I could retrieve the data out of load for more efficiency
 $(document).ready(function(){
     console.log("running script");
+
     $.get("/getUsers", function (res) {
         console.log(res);
         let users = res;
@@ -30,7 +53,8 @@ $(document).ready(function(){
                 $( function() {
                     $( "#dialog" ).dialog();
                 } );
-                //add to db of matches
+                sendEmail(user)
+                /////////////////////////////////////////////////////////
             }
 
 
