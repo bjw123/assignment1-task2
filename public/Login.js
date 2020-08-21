@@ -16,8 +16,10 @@ const newUser=()=>{
         success: function (result) {
             console.log(data)
             console.log(result)
+            document.cookie = ("email=" + email);
+
+            console.log(x);
             window.location.replace("Profile.html");
-            //.html?email="x"
         }
     })
 }

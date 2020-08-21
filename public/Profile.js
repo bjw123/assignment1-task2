@@ -9,7 +9,7 @@ function setProfile(user) {
 
 function sendEmail(user){
     let name = user["name"];
-    let email = user["email"];
+    let email = getCookie("email");
 
     console.log(name)
     console.log(email)
@@ -29,6 +29,13 @@ function sendEmail(user){
     })
 }
 
+function getCookie(name)    //https://www.the-art-of-web.com/javascript/getcookie/
+{
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;
+}
+
 
 
 
@@ -36,6 +43,8 @@ function sendEmail(user){
 // I could retrieve the data out of load for more efficiency
 $(document).ready(function(){
     console.log("running script");
+    document.getElementById("dialog").style.visibility = "hidden";
+    console.log(getCookie("email"));
 
     $.get("/getUsers", function (res) {
         console.log(res);
@@ -51,6 +60,7 @@ $(document).ready(function(){
             if(user["like"] == "true"){
                 $("#match-img").attr('src', user["pic"]);
                 $( function() {
+                    document.getElementById("dialog").style.visibility = "visible";
                     $( "#dialog" ).dialog();
                 } );
                 sendEmail(user)

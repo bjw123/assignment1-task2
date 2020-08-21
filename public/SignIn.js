@@ -12,9 +12,11 @@ $(document).ready(function(){
             for (i = 0; i < users.length; i++) {
                 if (users[i].email == $("#user-email").val()){
                     console.log(users[i]);
+                    document.cookie = ("email=" + users[i].email);
                     window.location.replace("Profile.html");
                 }
             }
+
 
 
     })

@@ -14,16 +14,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-/*
-let target = "brycewilkinson43@gmail.com";
-let targetName = "bryce";
-let mailOptions = {
-    from: 'tinderclone12@gmail.com',
-    to: "brycewilkinson43@gmail.com",
-    subject: 'Tinder clone, new match',
-    text: ('Congrats you have matched with ' + targetName)
-};
-*/
+
 
 let app = new express();
 
