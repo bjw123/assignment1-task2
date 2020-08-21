@@ -10,12 +10,10 @@ function setProfile(user) {
 function sendEmail(user){
     let name = user["name"];
     let email = getCookie("email");
-
-    console.log(name)
-    console.log(email)
+    console.log(email);
 
     let data = {name:name, email:email}
-    console.log("data:    " +data)
+    console.log("data:    " +data);
     $.ajax({
         url: '/sendEmail',
         contentType: 'application/json',
@@ -24,7 +22,6 @@ function sendEmail(user){
         success: function (result) {
             console.log(data)
             console.log(result)
-            //.html?email="x"
         }
     })
 }
@@ -42,10 +39,12 @@ function getCookie(name)    //https://www.the-art-of-web.com/javascript/getcooki
 
 // I could retrieve the data out of load for more efficiency
 $(document).ready(function(){
-    console.log("running script");
     document.getElementById("dialog").style.visibility = "hidden";
     console.log(getCookie("email"));
-
+    console.log(getCookie("pic"));
+    if(getCookie("pic").length !== 0) {
+        $("#your-img").attr('src', getCookie("pic"));
+    }
     $.get("/getUsers", function (res) {
         console.log(res);
         let users = res;

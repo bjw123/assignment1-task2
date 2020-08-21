@@ -3,10 +3,9 @@ const newUser=()=>{
     let email = $("#user-email").val();
     let age = $("#user-age").val();
     let gender = $("#user-gender").val();
-    console.log(name)
-    console.log(email)
+    let pic =  $("#user-pic").val();
 
-    let data = {name:name, email:email, age:age, gender:gender}
+    let data = {name:name, email:email, age:age, gender:gender, pic:pic}
     console.log("data:    " +data)
     $.ajax({
         url: '/createUser',
@@ -17,8 +16,7 @@ const newUser=()=>{
             console.log(data)
             console.log(result)
             document.cookie = ("email=" + email);
-
-            console.log(x);
+            document.cookie = ("pic=" + pic);
             window.location.replace("Profile.html");
         }
     })
@@ -33,28 +31,4 @@ $(document).ready(function () {
 
 
     })
-
-
-
-
-
-
-
-
-    /*$.get("/createAccount", function (data) {  //change address
-        //function
-        //alert("data: " + data);
-        //$("#result").val(data);
-        console.log(data);
-
-
-    })*/
-
-
-
-    /*$("#submitButton").click(function (){
-        alert( "Handler for .click() called." );
-
-    })*/
-
 })
